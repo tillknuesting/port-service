@@ -62,7 +62,7 @@ func main() {
 
 	if *runGRPC {
 		portService := grpc.PortService{PortForShipsRepository: repo}
-		err := grpc.StartServer("localhost:8080", portService, *bufferSize)
+		err := grpc.StartServer(":8080", portService, *bufferSize)
 		if err != nil {
 			log.Fatalln(err)
 		}
