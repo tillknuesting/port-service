@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ports-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ports-service
+  template:
+    metadata:
+      labels:
+        app: ports-service
+    spec:
+      containers:
+        - name: ports-service
+          image: ports-service:v1
+          args:
+            - "-grpc=true"
+            - "-buffer=100"
+            - "-file=/data/ports.json"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          hostPath:
+            path: /path/on/host/to/ports.json
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ports-service
+spec:
+  selector:
+    app: ports-service
+  ports:
+    - port: 8080
+      targetPort: 8080
