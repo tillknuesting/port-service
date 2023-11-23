@@ -19,7 +19,7 @@ func main() {
 	runGRPC := flag.Bool("grpc", true, "Whether to run gRPC server")
 	bufferSize := flag.Int("buffer", 100, "Size of buffered channel to limit memory usage")
 	filePath := flag.String("file", "data/ports.json", "Path to JSON file")
-	debugKey := flag.String("debugkey", "", "Key to lookup in the database")
+	debugKey := flag.String("debugkey", "ZWUTA", "Key to lookup in the database")
 
 	flag.Parse()
 
