@@ -1,5 +1,5 @@
 
-# Ports-Service
+# Port-Service
  ![hex](hex.png)
 ## Introduction
 This project is a Go-based microservices application. It demonstrates proficiency in hexagonal architecture, gRPC, Domain-Driven Design (DDD), and various streaming and data persistence techniques. The application provides two key adapter implementations: a gRPC streaming API and filesystem-based data streaming.
