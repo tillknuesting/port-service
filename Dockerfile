@@ -9,13 +9,17 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o manager cmd/server/main.go
+# Build the application and name the binary as 'service'
+RUN CGO_ENABLED=0 GOOS=linux go build -o service cmd/server/main.go
 
-# Use distroless 
+# Use distroless for a minimal runtime environment
 FROM gcr.io/distroless/static:nonroot
 WORKDIR /
-COPY --from=builder /app/manager .
 
-USER 65532:65532  
+# Copy the 'service' binary from the builder stage
+COPY --from=builder /app/service .
 
-ENTRYPOINT ["/manager"]
+USER 65532:65532
+
+# Set the entrypoint to the 'service' binary
+ENTRYPOINT ["/service"]
