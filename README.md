@@ -57,3 +57,18 @@ To test lookup of a specific key, pass the `-debugkey` flag:
 go run cmd/server/main.go -debugkey=KEY
 ```
 This will periodically print out whether the key is found in the in-memory database. Useful for testing data is being streamed and stored correctly.
+
+## Running the Docker Container
+
+To run the Docker container with your specific file and flags, follow these steps:
+
+1. Make sure you have [Docker](https://www.docker.com/get-started) installed on your machine.
+
+2. Open a terminal or command prompt.
+
+3. Run the following command, replacing the file path on your local machine as needed for e.g. file-based streaming:
+
+   ```bash
+   docker run -p 8080:8080 -v /path/to/your/local/file:/path/inside/container/ports.json ghcr.io/tillknuesting/port-service:main --grpc=false --file=/path/inside/container/ports.json
+
+Make sure to adjust the file path (/path/to/your/local/file) to point to the location of the ports.json on your local machine.
