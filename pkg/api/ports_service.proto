@@ -1,0 +1,39 @@
+syntax = "proto3";
+package api; // if a v2 is needed, change this to v2 but I don't think it is needed to version it yet
+option go_package = "ports-service/pkg/gen/grpc";
+
+// Import statements for any required types (e.g., for timestamp, etc.)
+// import "google/protobuf/timestamp.proto";
+
+// The Port message corresponds to the Port struct in Go.
+message Port {
+  string key = 1;                   // Unique identifier for the Port.
+  string name = 2;                  // Human-readable name of the Port.
+  string city = 3;                  // City where the Port is located.
+  string country = 4;               // Country where the Port is located.
+  repeated string alias = 5;        // Alternative names or identifiers for the Port.
+  repeated string regions = 6;      // Geographical or administrative regions associated with the Port.
+  repeated double coordinates = 7;  // Geographical coordinates of the Port, typically latitude and longitude.
+  string province = 8;              // Province or state where the Port is located.
+  string timezone = 9;              // Time zone of the Port.
+  repeated string unlocs = 10;      // United Nations Location Codes for the Port.
+  string code = 11;                 // Additional coding system.
+}
+
+// The PortService provides a streaming API for Port objects.
+service PortService {
+  // StreamPorts streams Port objects.
+  rpc StreamPorts(stream StreamPortsRequest) returns (StreamPortsResponse);
+}
+
+// StreamRequest is the request for the StreamPorts method.
+// It includes parameters that control the stream, like buffer size.
+message StreamPortsRequest {
+  string uuid = 1;  // Unique identifier for the message.
+  Port port = 2;    // Unique identifier for the Port.
+}
+
+message StreamPortsResponse {
+  string uuid = 1;
+  bool ack = 2;  // Status of the response.
+}
