@@ -3,8 +3,9 @@ package streamfromfile_test
 import (
 	"context"
 	"os"
-	"ports-service/internal/adapters/streamfromfile"
 	"testing"
+
+	"ports-service/internal/adapters/streamfromfile"
 
 	"github.com/stretchr/testify/assert"
 )

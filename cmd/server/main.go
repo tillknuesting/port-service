@@ -6,23 +6,24 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"syscall"
+	"time"
+
 	"ports-service/internal/adapters/database"
 	"ports-service/internal/adapters/grpc"
 	"ports-service/internal/adapters/streamfromfile"
 	"ports-service/internal/domain"
-	"syscall"
-	"time"
 )
 
 func main() {
-	var runGRPC = flag.Bool("grpc", true, "Whether to run gRPC server")
-	var bufferSize = flag.Int("buffer", 100, "Size of buffered channel to limit memory usage")
-	var filePath = flag.String("file", "data/ports.json", "Path to JSON file")
-	var debugKey = flag.String("debugkey", "", "Key to lookup in the database")
+	runGRPC := flag.Bool("grpc", true, "Whether to run gRPC server")
+	bufferSize := flag.Int("buffer", 100, "Size of buffered channel to limit memory usage")
+	filePath := flag.String("file", "data/ports.json", "Path to JSON file")
+	debugKey := flag.String("debugkey", "", "Key to lookup in the database")
 
 	flag.Parse()
 
-	//TODO: consider using slog package for structured logging
+	// TODO: consider using slog package for structured logging
 	log.Println("Run gRPC server:", *runGRPC)
 	log.Println("Buffer size:", *bufferSize)
 	log.Println("File path:", *filePath)
@@ -32,7 +33,7 @@ func main() {
 		DB: make(map[string]domain.Port),
 	}
 
-	//TODO: move this to separate package
+	// TODO: move this to separate package
 	if *debugKey != "" {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()

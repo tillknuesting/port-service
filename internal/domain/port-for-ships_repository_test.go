@@ -2,10 +2,11 @@ package domain_test
 
 import (
 	"context"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"ports-service/internal/domain"
-	"testing"
 )
 
 // MockPortRepository is a mock implementation of the PortRepository interface

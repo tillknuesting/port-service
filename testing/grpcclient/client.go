@@ -7,9 +7,10 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
+
 	"ports-service/internal/adapters/streamfromfile"
 	"ports-service/internal/domain"
-	"time"
 
 	"google.golang.org/grpc"
 
@@ -32,7 +33,6 @@ type Port struct {
 }
 
 func main() {
-
 	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)

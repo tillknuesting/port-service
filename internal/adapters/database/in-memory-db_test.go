@@ -2,8 +2,9 @@ package database_test
 
 import (
 	"context"
-	"ports-service/internal/adapters/database"
 	"testing"
+
+	"ports-service/internal/adapters/database"
 
 	"github.com/stretchr/testify/assert"
 )

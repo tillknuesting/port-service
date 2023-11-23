@@ -20,3 +20,50 @@ The project is structured following the hexagonal architecture model, divided in
 - **Ports**: Defined in `port-for-ships.go` and `port-for-ships_repository.go`, representing the primary interfaces for our application.
 - **Adapters**: Including `in-memory-db.go` for in-memory storage, `grpc-streaming.go` and `filesystem-streamer.go` for data streaming, and `store.go` for data persistence.
 - **Domain**: Core business logic encapsulated within the service implementation.
+
+
+
+## Architecture
+Testing
+This application supports two modes of operation:
+
+gRPC Server
+To test the gRPC server:
+
+Copy code
+
+go run cmd/server/main.go -grpc=true
+This will start the gRPC server on port 8080. You can then run the gRPC client under testing/grpcclient to connect and test streaming port data.
+
+gRPC Client
+A test gRPC client is provided under testing/grpcclient/client.go.
+
+To test connectivity and streaming:
+
+Start the gRPC server:
+Copy code
+
+go run cmd/server/main.go -grpc=true
+In another terminal, run the test client:
+Copy code
+
+go run testing/grpcclient/client.go
+This will connect to the gRPC server on port 8080 and print out streaming port data.
+
+The test client provides a way to validate the end-to-end streaming functionality through gRPC.
+
+File Streaming
+To test file streaming:
+
+Copy code
+
+go run cmd/server/main.go -grpc=false
+This will stream port data from the specified JSON file.
+
+Debug Key Lookup
+To test lookup of a specific key, pass the -debugkey flag:
+
+Copy code
+
+go run cmd/server/main.go -debugkey=KEY
+This will periodically print out whether the key is found in the in-memory database. Useful for testing data is being streamed and stored correctly.

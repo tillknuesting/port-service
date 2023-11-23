@@ -2,16 +2,18 @@ package grpc
 
 import (
 	"context"
-	"google.golang.org/grpc"
 	"io"
 	"log"
 	"net"
 	"os"
 	"os/signal"
-	"ports-service/internal/domain"
-	pb "ports-service/internal/gen/grpc"
 	"syscall"
 	"time"
+
+	"google.golang.org/grpc"
+
+	"ports-service/internal/domain"
+	pb "ports-service/internal/gen/grpc"
 )
 
 type PortServiceServer struct {

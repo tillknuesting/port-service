@@ -7,8 +7,9 @@ import (
 	"io"
 	"log"
 	"os"
-	"ports-service/internal/domain"
 	"reflect"
+
+	"ports-service/internal/domain"
 )
 
 // FileStreamer is a generic type for streaming data from a JSON file.
