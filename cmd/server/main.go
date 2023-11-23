@@ -62,7 +62,10 @@ func main() {
 
 	if *runGRPC {
 		portService := grpc.PortService{PortForShipsRepository: repo}
-		grpc.StartServer("localhost:8080", portService, *bufferSize)
+		err := grpc.StartServer("localhost:8080", portService, *bufferSize)
+		if err != nil {
+			log.Fatalln(err)
+		}
 	} else {
 		portService := streamfromfile.PortService{PortForShipsRepository: repo}
 		ctx, cancel := context.WithCancel(context.Background())
