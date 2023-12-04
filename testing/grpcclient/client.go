@@ -40,7 +40,7 @@ func main() {
 
 	client := pb.NewPortServiceClient(conn)
 
-	filePath := "C:\\Users\\tillk\\GolandProjects\\ports-service\\data\\ports.json"
+	filePath := "C:\\Users\\tillk\\GolandProjects\\ports-service\\data\\ports.json" //TODO: make this configurable
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -91,7 +91,7 @@ func main() {
 
 		fmt.Println("sending the following data: ", item)
 
-		time.Sleep(time.Millisecond)
+		time.Sleep(time.Millisecond) // simulate delay
 
 		id := uuid.New()
 
@@ -112,8 +112,12 @@ func main() {
 			},
 		}
 
-		stream.Send(req)
+		if stream.Send(req); err != nil {
+			log.Printf("Error sending data to server: %v\n", err)
+		}
 	}
 
-	stream.CloseAndRecv()
+	if stream.CloseAndRecv(); err != nil {
+		log.Printf("Error closing stream: %v\n", err)
+	}
 }

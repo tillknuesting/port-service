@@ -20,6 +20,7 @@ func main() {
 	bufferSize := flag.Int("buffer", 100, "Size of buffered channel to limit memory usage")
 	filePath := flag.String("file", "data/ports.json", "Path to JSON file")
 	debugKey := flag.String("debugkey", "ZWUTA", "Key to lookup in the database")
+	address := flag.String("address", ":8080", "Address to run gRPC server on")
 
 	flag.Parse()
 
@@ -34,6 +35,7 @@ func main() {
 	}
 
 	// TODO: move this to separate package
+	// this is just for debugging purposes
 	if *debugKey != "" {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
@@ -62,7 +64,7 @@ func main() {
 
 	if *runGRPC {
 		portService := grpc.PortService{PortForShipsRepository: repo}
-		err := grpc.StartServer(":8080", portService, *bufferSize)
+		err := grpc.StartServer(*address, portService, *bufferSize)
 		if err != nil {
 			log.Fatalln(err)
 		}

@@ -72,3 +72,14 @@ To run the Docker container with your specific file and flags, follow these step
    docker run -p 8080:8080 -v /path/to/your/local/file:/path/inside/container/ports.json ghcr.io/tillknuesting/port-service:main --grpc=false --file=/path/inside/container/ports.json
 
 Make sure to adjust the file path (/path/to/your/local/file) to point to the location of the ports.json on your local machine.
+
+Run with gRPC streaming:
+```bash
+docker run -p 8080:8080 ghcr.io/tillknuesting/port-service:main --grpc=true --debugkey=ZWUTA 
+
+```
+
+run the client to test the gRPC server:
+```bash
+go run testing/grpcclient/client.go
+```
